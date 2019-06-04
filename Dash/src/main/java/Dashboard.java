@@ -24,7 +24,7 @@ public class Dashboard implements Serializable {
 
 
     @PostConstruct
-    public void init() throws IOException {
+    public void init() {
         FacesContext context = FacesContext.getCurrentInstance();
         username = context.getExternalContext().getRemoteUser();
         User user = new User();
@@ -33,7 +33,6 @@ public class Dashboard implements Serializable {
         ResteasyClient client = new ResteasyClientBuilder().build();
         ResteasyWebTarget target = client.target("http://localhost:8080/Soa_Web_exploded/bilet");
         String response = target.request().get(String.class);
-        System.out.println(response);
         if (response.isEmpty()) return;
         Gson gson = new Gson();
         bilets = gson.fromJson(response, Bilet[].class);

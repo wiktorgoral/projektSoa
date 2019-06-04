@@ -13,7 +13,7 @@
         </element>
       </element>
       <element id="javaee-facet-resources" facet="Dash/web/Web" />
-      <element id="module-output" name="REST" />
+      <element id="javaee-facet-resources" facet="REST/web/Web" />
     </root>
   </artifact>
 </component>
