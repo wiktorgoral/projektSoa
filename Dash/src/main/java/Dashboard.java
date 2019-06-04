@@ -34,6 +34,7 @@ public class Dashboard implements Serializable {
         ResteasyWebTarget target = client.target("http://localhost:8080/Soa_Web_exploded/bilet");
         String response = target.request().get(String.class);
         if (response.isEmpty()) return;
+        System.out.println(response);
         Gson gson = new Gson();
         bilets = gson.fromJson(response, Bilet[].class);
         if (!username.equals("admin")){
