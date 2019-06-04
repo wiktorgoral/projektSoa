@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+
+</h:head>
+<h:body>
+    <h:form id="changepassword" rendered="#{!Dashboard.username.equals('admin')}">
+        <h:outputLabel  value="#{Change.error}" rendered="#{Change.error!=null}"/>
+
+            <h:outputLabel  value="Old Password" />
+            <h:inputSecret  value="#{Change.oldd}"/>
+
+            <h:outputLabel for="newPassword" value="New Password" />
+            <h:inputSecret id="newPassword" value="#{Change.neww}"/>
+
+            <h:outputLabel for="confirmPassword" value="Confirm new password" />
+            <h:inputSecret id="confirmPassword" value="#{Change.con}"/>
+
+            <h:commandButton  value="Change Password" action="#{Change.change()}"/>
+            <h:commandButton  value="Wroc" outcome="index" />
+
+
+    </h:form>
+    <h:form id="changepasswordadmin" rendered="#{Dashboard.username.equals('admin')}">
+        <h:outputLabel  value="#{Change.error}" rendered="#{Change.error!=null}"/>
+
+
+
+        <h:outputLabel  value="User" />
+        <h:inputSecret  value="#{Change.user}"/>
+
+        <h:outputLabel for="newPassword" value="New Password" />
+        <h:inputSecret id="newPasswordadmin" value="#{Change.neww}"/>
+
+        <h:outputLabel for="confirmPassword" value="Confirm new password" />
+        <h:inputSecret id="confirmPasswordadmin" value="#{Change.con}"/>
+
+        <h:commandButton  value="Change Password" action="#{Change.changeadmin()}"/>
+        <h:commandButton  value="Wroc" outcome="index" />
+
+
+    </h:form>
+</h:body>
+</html>
