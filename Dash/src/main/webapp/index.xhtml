@@ -23,7 +23,7 @@
 
    <h:form rendered="#{!Dashboard.getUsername().equals('admin')}">
       <h:outputText value="Twoja strefa"/>
-      <h:dataTable value="#{Dashboard.}" var="o">
+      <h:dataTable value="#{Dashboard.bilets}" var="o">
          <h:column>
             #{o}
          </h:column>
@@ -32,7 +32,7 @@
 
    <h:form rendered="#{Dashboard.getUsername().equals('admin')}">
       <h:outputText value="Powiadomienia"/>
-      <h:dataTable value="#{Dashboard.}" var="o">
+      <h:dataTable value="#{Dashboard.powiadomienia}" var="o">
          <h:column>
             #{o}
          </h:column>

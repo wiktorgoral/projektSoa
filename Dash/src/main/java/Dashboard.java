@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Vector;
 
 @ManagedBean(name = "Dashboard")
 @SessionScoped
@@ -19,6 +20,8 @@ public class Dashboard implements Serializable {
     private String username;
 
     private Bilet[] bilets;
+
+    private Vector<String> powiadomienia;
 
 
     @PostConstruct
@@ -42,6 +45,14 @@ public class Dashboard implements Serializable {
             }
             bilets=out;
         }
+    }
+
+    public Vector<String> getPowiadomienia() {
+        return powiadomienia;
+    }
+
+    public void setPowiadomienia(Vector<String> powiadomienia) {
+        this.powiadomienia = powiadomienia;
     }
 
     public Bilet[] getBilets() {
