@@ -8,8 +8,12 @@
           <element id="module-output" name="Soa" />
           <element id="module-output" name="Dash" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.3" />
+        </element>
       </element>
       <element id="javaee-facet-resources" facet="Dash/web/Web" />
+      <element id="module-output" name="REST" />
     </root>
   </artifact>
 </component>

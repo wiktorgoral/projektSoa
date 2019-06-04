@@ -15,14 +15,14 @@ public class Clientt {
 
     public void add(Bilet x){
         ResteasyClient client = new ResteasyClientBuilder().build();
-        ResteasyWebTarget target = client.target("http://localhost:8080/LAB8/bilet");
+        ResteasyWebTarget target = client.target("http://localhost:8080/Soa_Web_exploded/bilet");
         String response = target.request().post(Entity.entity(x, MediaType.APPLICATION_XML),String.class);
         System.out.println(response);
     }
 
     public void delete(String x){
         ResteasyClient client = new ResteasyClientBuilder().build();
-        ResteasyWebTarget target = client.target("http://localhost:8080/LAB8/bilet"+x);
+        ResteasyWebTarget target = client.target("http://localhost:8080/Soa_Web_exploded/bilet/"+x);
         Response response = target.request().delete();
         System.out.println(response.getStatus());
         response.close();
@@ -30,14 +30,14 @@ public class Clientt {
 
     public String get(String x){
         ResteasyClient client = new ResteasyClientBuilder().build();
-        ResteasyWebTarget target = client.target("http://localhost:8080/LAB8/"+x);
+        ResteasyWebTarget target = client.target("http://localhost:8080/Soa_Web_exploded/bilet/"+x);
         String response = target.request().get(String.class);
         return response;
     }
 
     public String getAll(){
         ResteasyClient client = new ResteasyClientBuilder().build();
-        ResteasyWebTarget target = client.target("http://localhost:8080/LAB8/");
+        ResteasyWebTarget target = client.target("http://localhost:8080/Soa_Web_exploded/bilet");
         String response = target.request().get(String.class);
         return response;
     }

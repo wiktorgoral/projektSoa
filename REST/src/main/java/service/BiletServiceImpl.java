@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-
+@Path("/bilet")
 @Consumes(MediaType.APPLICATION_XML)
 @Produces(MediaType.APPLICATION_JSON)
 public class BiletServiceImpl implements BiletService {

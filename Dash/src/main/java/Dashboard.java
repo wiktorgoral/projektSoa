@@ -2,7 +2,6 @@ import com.google.gson.Gson;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
-import org.json.JSONArray;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -32,9 +31,10 @@ public class Dashboard implements Serializable {
         user.setUsername(username);
         context.getExternalContext().getSessionMap().put("user",user);
         ResteasyClient client = new ResteasyClientBuilder().build();
-        ResteasyWebTarget target = client.target("http://localhost:8080/LAB8/");
+        ResteasyWebTarget target = client.target("http://localhost:8080/Soa_Web_exploded/bilet");
         String response = target.request().get(String.class);
-        JSONArray arr = new JSONArray(response);
+        System.out.println(response);
+        if (response.isEmpty()) return;
         Gson gson = new Gson();
         bilets = gson.fromJson(response, Bilet[].class);
         if (!username.equals("admin")){
