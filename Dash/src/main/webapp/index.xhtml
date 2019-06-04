@@ -14,7 +14,7 @@
    <h:commandButton value="Logout" action="logout"/>
    <h:form rendered="#{Dashboard.getUsername().equals('admin')}">
       <h:outputText value="Wszystkie miejsca"/>
-      <h:dataTable value="#{Dashboard.}" var="o">
+      <h:dataTable value="#{Dashboard.bilets}" var="o">
          <h:column>
             #{o}
          </h:column>
