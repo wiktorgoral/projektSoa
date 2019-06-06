@@ -1,4 +1,4 @@
-package service;
+package Rest;
 
 
 import model.Bilet;
@@ -10,10 +10,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-@Path("/bilet")
+@Path("/bilety")
 @Consumes(MediaType.APPLICATION_XML)
 @Produces(MediaType.APPLICATION_JSON)
-public class BiletServiceImpl implements BiletService {
+public class BiletService implements BiletService {
 
     private static Map<String, Bilet> bilets = new HashMap<String, Bilet>();
 

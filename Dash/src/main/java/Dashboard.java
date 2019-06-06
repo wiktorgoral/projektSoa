@@ -1,73 +1,52 @@
-import com.google.gson.Gson;
-import org.jboss.resteasy.client.jaxrs.ResteasyClient;
-import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
-import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
+
+import Controller.BazaDanych;
+import DAO.Miejsce;
+import DAO.Uzytkownik;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.Vector;
+import java.util.List;
 
 @ManagedBean(name = "Dashboard")
 @SessionScoped
 public class Dashboard implements Serializable {
 
-    private String username;
+    private Uzytkownik user;
 
-    private Bilet[] bilets;
+    private List<Miejsce> stan;
 
-    private Vector<String> powiadomienia;
-
+    @EJB(lookup = "java:global/MainImpl/BazaDanych")
+    BazaDanych controller;
 
     @PostConstruct
     public void init() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        username = context.getExternalContext().getRemoteUser();
-        User user = new User();
-        user.setUsername(username);
-        context.getExternalContext().getSessionMap().put("user",user);
-        ResteasyClient client = new ResteasyClientBuilder().build();
-        ResteasyWebTarget target = client.target("http://localhost:8080/Soa_Web_exploded/bilet");
-        String response = target.request().get(String.class);
-        if (response.isEmpty()) return;
-        System.out.println(response);
-        Gson gson = new Gson();
-        bilets = gson.fromJson(response, Bilet[].class);
-        if (!username.equals("admin")){
-            Bilet[] out=new Bilet[20];
-            int numer = Character.getNumericValue(username.charAt(username.length() - 1));
-            for (int i=0;i<20;i++){
-                out[i]=bilets[numer*20+i];
+        if (user == null) {
+            String nick = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
+            if (!nick.isEmpty()) {
+                user = BazaDanych.pobierzUzytkownika(nick);
             }
-            bilets=out;
         }
     }
 
-    public Vector<String> getPowiadomienia() {
-        return powiadomienia;
+    public Uzytkownik getUser() {
+        return user;
     }
 
-    public void setPowiadomienia(Vector<String> powiadomienia) {
-        this.powiadomienia = powiadomienia;
+    public void setUser(Uzytkownik user) {
+        this.user = user;
     }
 
-    public Bilet[] getBilets() {
-        return bilets;
+    public List<Miejsce> getStan() {
+        stan = controller.pobierzStan(user);
+        return stan;
     }
 
-    public void setBilets(Bilet[] bilets) {
-        this.bilets = bilets;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setStan(List<Miejsce> stan) {
+        this.stan = stan;
     }
 }
