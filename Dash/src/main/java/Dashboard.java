@@ -1,7 +1,8 @@
 
 import Controller.BazaDanych;
-import DAO.Miejsce;
-import DAO.Uzytkownik;
+import POJO.MiejscePOJO;
+import POJO.UzytkownikPOJO;
+
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -16,37 +17,36 @@ import java.util.List;
 @SessionScoped
 public class Dashboard implements Serializable {
 
-    private Uzytkownik user;
+    private UzytkownikPOJO uzytkownik;
 
-    private List<Miejsce> stan;
+    private List<MiejscePOJO> stan;
 
     @EJB(lookup = "java:global/MainImpl/BazaDanych")
     BazaDanych controller;
 
     @PostConstruct
     public void init() {
-        if (user == null) {
+        if (uzytkownik == null) {
             String nick = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
             if (!nick.isEmpty()) {
-                user = BazaDanych.pobierzUzytkownika(nick);
+                uzytkownik = controller.pobierzUzytkownika(nick);
             }
         }
     }
 
-    public Uzytkownik getUser() {
-        return user;
+    public UzytkownikPOJO getUzytkownik() {
+        return uzytkownik;
     }
 
-    public void setUser(Uzytkownik user) {
-        this.user = user;
+    public void setUzytkownik(UzytkownikPOJO uzytkownik) {
+        this.uzytkownik = uzytkownik;
     }
 
-    public List<Miejsce> getStan() {
-        stan = controller.pobierzStan(user);
+    public List<MiejscePOJO> getStan() {
         return stan;
     }
 
-    public void setStan(List<Miejsce> stan) {
+    public void setStan(List<MiejscePOJO> stan) {
         this.stan = stan;
     }
 }

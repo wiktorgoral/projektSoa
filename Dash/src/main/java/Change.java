@@ -27,6 +27,7 @@ public class Change {
         Query q = em.createQuery("SELECT h.passwd FROM users h where h.login =:login").setParameter("login", FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
         String res = (String) q.getSingleResult();
 
+
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance("MD5");

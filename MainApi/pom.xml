@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>MainImpl</artifactId>
+    <artifactId>MainApi</artifactId>
     <dependencies>
         <dependency>
             <groupId>javax</groupId>

@@ -12,6 +12,7 @@
         <module>Dash</module>
         <module>REST</module>
         <module>MainImpl</module>
+        <module>MainApi</module>
     </modules>
 
 </project>

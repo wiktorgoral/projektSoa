@@ -6,15 +6,7 @@
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
-    <servlet>
-        <servlet-name>Faces Servlet</servlet-name>
-        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.xhtml</url-pattern>
-    </servlet-mapping>
+
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>HtmlAuth</web-resource-name>
@@ -40,6 +32,6 @@
         <role-name>Manager</role-name>
     </security-role>
     <security-role>
-        <role-name>DAO.User</role-name>
+        <role-name>User</role-name>
     </security-role>
 </web-app>
