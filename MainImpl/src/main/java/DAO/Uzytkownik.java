@@ -22,7 +22,6 @@ public class Uzytkownik {
             System.out.println("Dodano do bazy " + x.getId());
         }
         catch(Exception e) {
-            em.getTransaction().rollback();
             System.out.println("Nie mozna dodac do bazy " + e);
         }
     }
@@ -76,10 +75,36 @@ public class Uzytkownik {
             em.getTransaction().commit();
         }
         catch(Exception e) {
-            System.err.println("Nie mozna ustawic strefy " + e);
+            System.out.println("Nie mozna ustawic strefy " + e);
         }
     }
 
-    public static void ustawHaslo()
+    public static boolean ustawHaslo(int id, String stareHaslo, String noweHaslo){
+        boolean zmiana = false;
+        try{
+            UzytkownikPOJO uzytkownik = em.find(UzytkownikPOJO.class, id);
+            if(uzytkownik.getPassword().equals(stareHaslo)){
+                em.getTransaction().begin();
+                uzytkownik.setPassword(noweHaslo);
+                em.getTransaction().commit();
+                zmiana = true;
+            }
+        }
+        catch(Exception e) {
+            System.out.println("Nie mozna zmienic hasla " + e);
+        }
+        return zmiana;
+    }
+
+    public static List<UzytkownikPOJO> getAll(){
+        List<UzytkownikPOJO> uzytkownicy = new ArrayList<UzytkownikPOJO>();
+        try {
+            Query q = em.createQuery("FROM Uzytkownik ", UzytkownikPOJO.class);
+            uzytkownicy = q.getResultList();
+        } catch (Exception e) {
+            System.out.println("Nie mozna pobrac z bazy " + e);
+        }
+        return uzytkownicy;
+    }
 
 }

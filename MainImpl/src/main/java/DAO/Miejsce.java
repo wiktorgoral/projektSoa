@@ -27,7 +27,6 @@ public class Miejsce {
             System.out.println("Dodano do bazy " + x.getId());
         }
         catch(Exception e) {
-            em.getTransaction().rollback();
             System.out.println("Nie mozna dodac do bazy " + e);
         }
     }

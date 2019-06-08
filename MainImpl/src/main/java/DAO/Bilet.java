@@ -22,7 +22,6 @@ public class Bilet {
             System.out.println("Dodano do bazy " + x.getId());
         }
         catch(Exception e) {
-            em.getTransaction().rollback();
             System.out.println("Nie mozna dodac do bazy " + e);
         }
     }
@@ -51,6 +50,17 @@ public class Bilet {
         catch (Exception e){
             System.out.println("Nie mozna usunac z bazy "+e);
         }
+    }
+
+    public static List<BiletPOJO> getAll(){
+        List<BiletPOJO> uzytkownicy = new ArrayList<BiletPOJO>();
+        try {
+            Query q = em.createQuery("FROM Bilet ", BiletPOJO.class);
+            uzytkownicy = q.getResultList();
+        } catch (Exception e) {
+            System.out.println("Nie mozna pobrac z bazy " + e);
+        }
+        return uzytkownicy;
     }
 
 }

@@ -24,7 +24,7 @@ public class Change {
 
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("JPA-Zajecia");
         EntityManager em = factory.createEntityManager();
-        Query q = em.createQuery("SELECT h.passwd FROM users h where h.login =:login").setParameter("login", FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
+        Query q = em.createQuery("SELECT h.password FROM Uzytkownik h where h.nick =:nick").setParameter("nick", FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
         String res = (String) q.getSingleResult();
 
 
