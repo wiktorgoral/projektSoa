@@ -6,6 +6,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
+          <factory-entry name="Baza" />
           <factory-entry name="NewPersistenceUnit" />
         </datasource-mapping>
         <naming-strategy-map />

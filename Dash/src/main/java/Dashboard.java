@@ -1,5 +1,5 @@
 
-import Controller.BazaDanych;
+import Controller.Bean;
 import POJO.MiejscePOJO;
 import POJO.UzytkownikPOJO;
 
@@ -21,15 +21,16 @@ public class Dashboard implements Serializable {
 
     private List<MiejscePOJO> stan;
 
-    @EJB(lookup = "java:global/MainImpl/BazaDanych")
-    BazaDanych controller;
+    @EJB(lookup = "java:global/MainImpl/Bean")
+    Bean controller;
 
     @PostConstruct
     public void init() {
         if (uzytkownik == null) {
             String nick = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
             if (!nick.isEmpty()) {
-                uzytkownik = controller.pobierzUzytkownika(nick);
+                uzytkownik = controller.getUzytkownik(nick);
+                stan = controller.getMiejsca(uzytkownik);
             }
         }
     }

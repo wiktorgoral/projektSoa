@@ -2,6 +2,7 @@ package DAO;
 
 
 import POJO.BiletPOJO;
+import POJO.MiejscePOJO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,6 +19,11 @@ public class Bilet {
         try {
             em.getTransaction().begin();
             em.persist(x);
+            MiejscePOJO miejsce = em.find(MiejscePOJO.class, x.getMiejsce().getId());
+            List<BiletPOJO> bilety = miejsce.getBilety();
+            bilety.add(x);
+            miejsce.setBilety(bilety);
+            em.persist(miejsce);
             em.getTransaction().commit();
             System.out.println("Dodano do bazy " + x.getId());
         }

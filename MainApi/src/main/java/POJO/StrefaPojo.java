@@ -13,7 +13,7 @@ public class StrefaPojo implements Serializable {
     private int id;
 
     @OneToMany(mappedBy = "zone", orphanRemoval = true, cascade = CascadeType.REMOVE)
-    private List<MiejscePOJO> parkingSpots = new ArrayList<MiejscePOJO>();
+    private List<MiejscePOJO> miejsca = new ArrayList<MiejscePOJO>();
 
     @OneToOne
     @JoinColumn(name = "Uzytkownik_id")
@@ -34,12 +34,12 @@ public class StrefaPojo implements Serializable {
         this.id = id;
     }
 
-    public List<MiejscePOJO> getParkingSpots() {
-        return parkingSpots;
+    public List<MiejscePOJO> getMiejsca() {
+        return miejsca;
     }
 
-    public void setParkingSpots(List<MiejscePOJO> parkingSpots) {
-        this.parkingSpots = parkingSpots;
+    public void setMiejsca(List<MiejscePOJO> miejsca) {
+        this.miejsca = miejsca;
     }
 
     public UzytkownikPOJO getUzytkownik() {

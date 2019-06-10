@@ -23,6 +23,11 @@ public class Miejsce {
         try {
             em.getTransaction().begin();
             em.persist(x);
+            StrefaPojo strefa = em.find(StrefaPojo.class, x.getStrefa().getId());
+            List<MiejscePOJO> miejsca = strefa.getMiejsca();
+            miejsca.add(x);
+            strefa.setMiejsca(miejsca);
+            em.persist(strefa);
             em.getTransaction().commit();
             System.out.println("Dodano do bazy " + x.getId());
         }
@@ -115,6 +120,32 @@ public class Miejsce {
             if (bilet.getKoniec().after(now))
                 return true;
         }
+        return false;
+    }
+
+    public static BiletPOJO getOstatniBilet(int miejsceId){
+        MiejscePOJO miejsce = em.find(MiejscePOJO.class, miejsceId);
+        List<BiletPOJO> bilety = miejsce.getBilety();
+        BiletPOJO ostatni = new BiletPOJO();
+        ostatni.setPoczatek( new Timestamp(System.currentTimeMillis()));
+        for (int i=0;i<bilety.size();i++){
+            if(bilety.get(i).getPoczatek().before(ostatni.getPoczatek()))
+                ostatni=bilety.get(i);
+        }
+        return ostatni;
+    }
+
+    public static boolean warningOK(MiejscePOJO miejsce) {
+        if (miejsce.getWolne())
+            return false;
+
+        if (Miejsce.oplacone(miejsce))
+            return false;
+
+
+        if (getOstatniBilet(miejsce.getId()).getKoniec().before(new Timestamp(System.currentTimeMillis())))
+            return true;
+
         return false;
     }
 }

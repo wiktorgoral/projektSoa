@@ -13,6 +13,8 @@
         <module>REST</module>
         <module>MainImpl</module>
         <module>MainApi</module>
+        <module>Sensor</module>
+        <module>Parkometr</module>
     </modules>
 
 </project>

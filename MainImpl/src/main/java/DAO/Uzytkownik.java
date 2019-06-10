@@ -1,5 +1,6 @@
 package DAO;
 
+import Other.Hash;
 import POJO.StrefaPojo;
 import POJO.UzytkownikPOJO;
 
@@ -7,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +68,16 @@ public class Uzytkownik {
         }
     }
 
+    public static boolean checkHaslo(String imie, String haslo) throws NoSuchAlgorithmException {
+        UzytkownikPOJO uzytkownik = get(imie);
+        haslo= Hash.hash(haslo);
+        if (haslo.equals(uzytkownik.getPassword())) return true;
+        else {
+            System.out.println("Błędne hasło");
+            return false;
+        }
+    }
+
     public static void ustawStrefa(int id, int strefaId) {
         try {
             UzytkownikPOJO uzytkownik = em.find(UzytkownikPOJO.class, id);
@@ -79,21 +91,24 @@ public class Uzytkownik {
         }
     }
 
-    public static boolean ustawHaslo(int id, String stareHaslo, String noweHaslo){
-        boolean zmiana = false;
+    public static boolean ustawHaslo(int id, String stareHaslo,String noweHaslo) throws NoSuchAlgorithmException {
+        boolean out = false;
         try{
-            UzytkownikPOJO uzytkownik = em.find(UzytkownikPOJO.class, id);
-            if(uzytkownik.getPassword().equals(stareHaslo)){
+            String nowe = Hash.hash(noweHaslo);
+            String stare = Hash.hash(stareHaslo);
+            if (checkHaslo(get(id).getNick(),stare)) {
                 em.getTransaction().begin();
-                uzytkownik.setPassword(noweHaslo);
+                Query q = em.createQuery("UPDATE Uzytkownik e SET e.password=:password where id=:id");
+                q.setParameter("password", nowe);
+                int row = q.executeUpdate();
                 em.getTransaction().commit();
-                zmiana = true;
+                out=true;
             }
         }
         catch(Exception e) {
             System.out.println("Nie mozna zmienic hasla " + e);
         }
-        return zmiana;
+        return out;
     }
 
     public static List<UzytkownikPOJO> getAll(){
