@@ -4,8 +4,8 @@ package SOAP;
 import DAO.Miejsce;
 import Warning.Warningi;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import java.text.SimpleDateFormat;
@@ -15,7 +15,7 @@ import java.util.Date;
 @WebService
 public class MiejsceServiceSoap {
 
-    @EJB(lookup = "java:global/MainImpl/Alert")
+    @Inject
     Warningi alertManager;
 
     @WebMethod(operationName = "ustawZajete")

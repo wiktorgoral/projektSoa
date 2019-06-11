@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Miejsce {
-    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("Baza");;
+    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("Baza");
     private static EntityManager em = factory.createEntityManager();
 
     public static void add(MiejscePOJO x) {

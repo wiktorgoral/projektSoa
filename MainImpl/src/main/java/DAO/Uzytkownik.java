@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Uzytkownik {
-    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("Baza");;
+    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("Baza");
     private static EntityManager em = factory.createEntityManager();
 
     public static void add(UzytkownikPOJO x){

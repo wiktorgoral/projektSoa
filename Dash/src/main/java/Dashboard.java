@@ -4,10 +4,10 @@ import Warning.BazaDanych;
 import Warning.Wiadomosci;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
 
@@ -21,10 +21,10 @@ public class Dashboard implements Serializable {
 
     private List<String> wiadomosci;
 
-    @EJB(lookup = "java:global/MainImpl/BazaWiadomosci!Warning.remote.WiadomosciRemote")
+    @Inject
     Wiadomosci bazaWiadomosci;
 
-    @EJB(lookup = "java:global/MainImpl/BazaDanychBean!Warning.remote.BazaDanychRemote")
+    @Inject
     BazaDanych bazaDanych;
 
     @PostConstruct

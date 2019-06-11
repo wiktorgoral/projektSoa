@@ -58,7 +58,7 @@ public class BazaWiadomosci implements WiadomosciLocal, WiadomosciRemote{
     private static Boolean warningOK(String warning) {
         String[] id = warning.split(":");
         ResteasyClient client = new ResteasyClientBuilder().build();
-        ResteasyWebTarget target = client.target("http://localhost:8080/projektSoa/warnings/"+ id[1]);
+        ResteasyWebTarget target = client.target("http://localhost:8080/Dash_war_exploded/warnings/"+ id[1]);
         String response = target.request().get(String.class);
         JSONObject json = new JSONObject(response);
         return json.getBoolean("OK");

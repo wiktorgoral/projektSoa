@@ -3,8 +3,8 @@ package Other;
 
 import Controller.BazaWiadomosci;
 
-import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
+import javax.inject.Inject;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
@@ -16,7 +16,7 @@ public class Receiver implements MessageListener {
 
     private static final Logger LOGGER = Logger.getLogger(Receiver.class.toString());
 
-    @EJB(lookup = "java:global/MainImpl/BazaWiadomosci!Warningi.local.WiadomosciLocal")
+    @Inject
     BazaWiadomosci bazaWiadomosci;
 
     public void onMessage(Message message) {

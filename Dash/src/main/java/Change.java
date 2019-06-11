@@ -22,7 +22,7 @@ public class Change {
 
     public void change() {
 
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("JPA-Zajecia");
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("Baza");
         EntityManager em = factory.createEntityManager();
         Query q = em.createQuery("SELECT h.password FROM Uzytkownik h where h.nick =:nick").setParameter("nick", FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
         String res = (String) q.getSingleResult();

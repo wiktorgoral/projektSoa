@@ -18,7 +18,7 @@ public class ParkometrBean {
 
     public ArrayList<Integer> getMiejscaId(){
         ResteasyClient client = new ResteasyClientBuilder().build();
-        ResteasyWebTarget target = client.target("http://localhost:8080/projektSoa/miejsca");
+        ResteasyWebTarget target = client.target("http://localhost:8080/Dash_war_exploded/miejsca");
         String response = target.request().get(String.class);
         JSONArray json = new JSONArray(new JSONObject(response));
         ArrayList<Integer> out = new ArrayList<Integer>();
@@ -33,7 +33,7 @@ public class ParkometrBean {
         json.put("miejsceId",miejsceId);
         json.put("czas",czas);
         ResteasyClient client = new ResteasyClientBuilder().build();
-        ResteasyWebTarget target = client.target("http://localhost:8080/projektSoa/bilety");
+        ResteasyWebTarget target = client.target("http://localhost:8080/Dash_war_exploded/bilety");
         String response = target.request().post(Entity.entity(json, MediaType.APPLICATION_JSON),String.class);
         System.out.println(response);
 
