@@ -63,6 +63,16 @@
             <version>0.7.8</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>javax.jws</groupId>
+            <artifactId>jsr181-api</artifactId>
+            <version>1.0-MR1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-client</artifactId>
+            <version>3.6.0.Final</version>
+        </dependency>
     </dependencies>
 
 

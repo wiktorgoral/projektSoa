@@ -10,31 +10,37 @@
 
 </h:head>
 <h:body>
-   <h:commandButton value="Zmien loginy" action="zmien" rendered="#{Dashboard.getUser().getName().eguals('admin')}"/>
-   <h:commandButton value="Zmien login" action="zmien" rendered="#{!Dashboard.getUser().getName().eguals('admin')}"/>
-   <h:commandButton value="Logout" action="logout"/>
+   <h:commandButton value="Zmien loginy" action="zmien" rendered="#{Dashboard.getUzytkownik().getNick().equals('admin')}"/>
+   <h:commandButton value="Zmien login" action="zmien" rendered="#{!Dashboard.getUzytkownik().getNick().equals('admin')}"/>
+   <h:commandButton value="Logout" action="login"/>
 
-   <h:form>
+   <h:form id="miejsca">
       <h:outputText value="Wszystkie miejsca"/>
-      <h:dataTable value="#{Dashboard.getStan}" var="element">
+      <h:dataTable value="#{Dashboard.getStan()}" var="element">
          <h:column>
             <f:facet name="header">Strefa</f:facet>
-            #{element.strefaId}
+            #{element.getStrefa().getId()}
          </h:column>
          <h:column>
             <f:facet name="header">Miejsce</f:facet>
-            #{element.id}
+            #{element.getId()}
          </h:column>
          <h:column>
-            <f:facet name="header">Stan</f:facet>
-            #{element.wolne}
-         </h:column>
-         <h:column>
-            <f:facet name="header">Opłacony</f:facet>
-            #{element.oplacone}
+            <f:facet name="header">Wolne</f:facet>
+            #{element.getWolne()}
          </h:column>
       </h:dataTable>
-      <p:poll interval="3" listener="#{Dashboard.getStan}" process="@this" update="panel" />
+      <p:poll interval="60" listener="#{Dashboard.updateStan()}" process="@this" update="miejsca" />
+   </h:form>
+
+   <h:form id="wiadomosci">
+      <h:outputText value="Wiadomosci"/>
+      <h:dataTable value="#{Dashboard.getWiadomosci()}" var="wiadomosc">
+         <h:column>
+            #{wiadomosc}
+         </h:column>
+      </h:dataTable>
+      <p:poll interval="60" listener="#{Dashboard.updateWiadomosci()}" process="@this" update="wiadomosci" />
    </h:form>
 
 

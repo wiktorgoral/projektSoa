@@ -9,7 +9,7 @@
 
 </h:head>
 <h:body>
-    <h:form id="changepassword" rendered="#{!Dashboard.username.equals('admin')}">
+    <h:form id="changepassword" rendered="#{!Dashboard.uzytkownik.nick.equals('admin')}">
         <h:outputLabel  value="#{Change.error}" rendered="#{Change.error!=null}"/>
 
             <h:outputLabel  value="Old Password" />
@@ -26,13 +26,13 @@
 
 
     </h:form>
-    <h:form id="changepasswordadmin" rendered="#{Dashboard.username.equals('admin')}">
+    <h:form id="changepasswordadmin" rendered="#{Dashboard.uzytkownik.nick.equals('admin')}">
         <h:outputLabel  value="#{Change.error}" rendered="#{Change.error!=null}"/>
 
 
 
         <h:outputLabel  value="DAO.User" />
-        <h:inputSecret  value="#{Change.user}"/>
+        <h:inputSecret  value="#{Change.uzytkownik}"/>
 
         <h:outputLabel for="newPassword" value="New Password" />
         <h:inputSecret id="newPasswordadmin" value="#{Change.neww}"/>

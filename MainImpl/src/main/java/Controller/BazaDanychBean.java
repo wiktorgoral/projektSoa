@@ -16,7 +16,7 @@ import java.util.List;
 @Local(BazaDanychLocal.class)
 @Remote(BazaDanychRemote.class)
 @Singleton
-public class Bean implements BazaDanychLocal, BazaDanychRemote{
+public class BazaDanychBean implements BazaDanychLocal, BazaDanychRemote{
 
     public UzytkownikPOJO getUzytkownik(String name) {
         return Uzytkownik.get(name);

@@ -1,5 +1,5 @@
-import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -11,10 +11,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @ManagedBean(name = "Change")
-@RequestScoped
+@SessionScoped
 public class Change {
 
-    private String user;
+    private String uzytkownik;
     private String error;
     private String neww;
     private String oldd;
@@ -26,19 +26,15 @@ public class Change {
         EntityManager em = factory.createEntityManager();
         Query q = em.createQuery("SELECT h.password FROM Uzytkownik h where h.nick =:nick").setParameter("nick", FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
         String res = (String) q.getSingleResult();
-
-
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance("MD5");
-        } catch (
-                NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         md.update(oldd.getBytes());
         byte[] digest = md.digest();
         String myHash = DatatypeConverter.printBase64Binary(digest);
-
         if (!res.equals(myHash)) {
             error = "Zle haslo";
         }
@@ -47,7 +43,7 @@ public class Change {
         }
         else {
             em.getTransaction().begin();
-            q = em.createQuery("UPDATE users e SET e.passwd=:pass where e.login=:login");
+            q = em.createQuery("UPDATE Uzytkownik e SET e.password=:pass where e.nick=:login");
             q.setParameter("login", FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
             md.update(neww.getBytes());
             digest = md.digest();
@@ -65,7 +61,7 @@ public class Change {
 
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("JPA-Zajecia");
         EntityManager em = factory.createEntityManager();
-        Query q = em.createQuery("FROM users h where h.login =:login").setParameter("login", user);
+        Query q = em.createQuery("FROM Uzytkownik h where h.password =:login").setParameter("login", uzytkownik);
         List results = q.getResultList();
         if (results.isEmpty()) {
             error="Brak danego usera";
@@ -86,7 +82,7 @@ public class Change {
         }
         else {
             em.getTransaction().begin();
-            q = em.createQuery("UPDATE users e SET e.passwd=:pass where e.login=:login");
+            q = em.createQuery("UPDATE Uzytkownik e SET e.password=:pass where e.nick=:login");
             q.setParameter("login", FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
             q.setParameter("pass",myHash);
             int row = q.executeUpdate();
@@ -97,12 +93,12 @@ public class Change {
 
     }
 
-    public String getUser() {
-        return user;
+    public String getUzytkownik() {
+        return uzytkownik;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUzytkownik(String uzytkownik) {
+        this.uzytkownik = uzytkownik;
     }
 
     public String getError() {

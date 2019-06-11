@@ -12,6 +12,7 @@ public class App extends Application {
     public App() {
         singletons.add(new BiletService());
         singletons.add(new MiejsceService());
+        singletons.add(new WarningService());
     }
 
     @Override

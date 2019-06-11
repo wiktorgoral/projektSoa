@@ -1,15 +1,13 @@
-
-import Controller.Bean;
 import POJO.MiejscePOJO;
 import POJO.UzytkownikPOJO;
-
+import Warning.BazaDanych;
+import Warning.Wiadomosci;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -21,18 +19,33 @@ public class Dashboard implements Serializable {
 
     private List<MiejscePOJO> stan;
 
-    @EJB(lookup = "java:global/MainImpl/Bean")
-    Bean controller;
+    private List<String> wiadomosci;
+
+    @EJB(lookup = "java:global/MainImpl/BazaWiadomosci!Warning.remote.WiadomosciRemote")
+    Wiadomosci bazaWiadomosci;
+
+    @EJB(lookup = "java:global/MainImpl/BazaDanychBean!Warning.remote.BazaDanychRemote")
+    BazaDanych bazaDanych;
 
     @PostConstruct
     public void init() {
         if (uzytkownik == null) {
             String nick = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
             if (!nick.isEmpty()) {
-                uzytkownik = controller.getUzytkownik(nick);
-                stan = controller.getMiejsca(uzytkownik);
+                uzytkownik = bazaDanych.getUzytkownik(nick);
+                stan = bazaDanych.getMiejsca(uzytkownik);
+                wiadomosci = bazaWiadomosci.get(uzytkownik.getId());
             }
         }
+
+    }
+
+    public void updateWiadomosci(){
+        wiadomosci.addAll(bazaWiadomosci.get(uzytkownik.getId()));
+    }
+
+    public void updateStan(){
+        stan = bazaDanych.getMiejsca(uzytkownik);
     }
 
     public UzytkownikPOJO getUzytkownik() {
@@ -49,5 +62,13 @@ public class Dashboard implements Serializable {
 
     public void setStan(List<MiejscePOJO> stan) {
         this.stan = stan;
+    }
+
+    public List<String> getWiadomosci() {
+        return wiadomosci;
+    }
+
+    public void setWiadomosci(List<String> wiadomosci) {
+        this.wiadomosci = wiadomosci;
     }
 }
