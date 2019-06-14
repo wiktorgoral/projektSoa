@@ -5,10 +5,11 @@ import DAO.Bilet;
 import DAO.Miejsce;
 import POJO.BiletPOJO;
 import POJO.MiejscePOJO;
-import Scheduler.Alert;
+import Warning.Warningi;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 
+import javax.naming.InitialContext;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -25,7 +26,7 @@ public class BiletService {
     @POST
     public Response addBilet(InputStream input) throws IOException {
         String jsonTxt = IOUtils.toString(input, "UTF-8");
-        JSONObject json = new org.json.JSONObject(jsonTxt);
+        JSONObject json = new JSONObject(jsonTxt);
         int miejsceId = json.getInt("miejsceId");
         int czas = json.getInt("czas");
         MiejscePOJO miejsce = Miejsce.get(miejsceId);
@@ -37,10 +38,17 @@ public class BiletService {
         Timestamp koniec = new Timestamp(czass+czas*60*1000);
         BiletPOJO bilet = new BiletPOJO(start,koniec,miejsce);
         Bilet.add(bilet);
-
-        new Alert().dodajBilet(bilet);
+        try {
+            InitialContext ctx = new InitialContext();
+            Warningi alertBean;
+            alertBean = (Warningi) ctx.lookup("java:global/MainImpl-1.0-SNAPSHOT/Alert!Warning.remote.WarningiRemote");
+            alertBean.dodajBilet(bilet);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         return Response.status(200).build();
     }
+
 
     @DELETE
     @Path("/{id}")
@@ -62,10 +70,6 @@ public class BiletService {
                 .entity(Bilet.get(id)).build();
     }
 
-    @GET
-    public Response getAllBilet() {
-        return Response.status(Response.Status.OK).entity(Bilet.getAll()).build();
-    }
 
 
 }

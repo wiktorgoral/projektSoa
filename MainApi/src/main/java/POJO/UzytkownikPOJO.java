@@ -19,7 +19,7 @@ public class UzytkownikPOJO implements Serializable {
     private String password;
 
     @OneToOne
-    @JoinColumn(name = "zone_id")
+    @JoinColumn(name = "strefa")
     private StrefaPojo strefa;
 
     public UzytkownikPOJO() {

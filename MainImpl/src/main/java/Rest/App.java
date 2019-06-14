@@ -2,7 +2,6 @@ package Rest;
 
 import javax.ws.rs.core.Application;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class App extends Application {
@@ -20,14 +19,5 @@ public class App extends Application {
         return singletons;
     }
 
-    @Override
-    public Set<Class<?>> getClasses() {
-        return super.getClasses();
-    }
-
-    @Override
-    public Map<String, Object> getProperties() {
-        return super.getProperties();
-    }
 
 }

@@ -4,10 +4,10 @@ import Warning.BazaDanych;
 import Warning.Wiadomosci;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
 
@@ -21,11 +21,12 @@ public class Dashboard implements Serializable {
 
     private List<String> wiadomosci;
 
-    @Inject
+    @EJB(lookup = "java:global/MainImpl-1.0-SNAPSHOT/BazaWiadomosci!Warning.remote.WiadomosciRemote")
     Wiadomosci bazaWiadomosci;
 
-    @Inject
+    @EJB(lookup = "java:global/MainImpl-1.0-SNAPSHOT/BazaDanychBean!Warning.remote.BazaDanychRemote")
     BazaDanych bazaDanych;
+
 
     @PostConstruct
     public void init() {
@@ -33,19 +34,20 @@ public class Dashboard implements Serializable {
             String nick = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
             if (!nick.isEmpty()) {
                 uzytkownik = bazaDanych.getUzytkownik(nick);
+                System.out.println(uzytkownik.getNick());
                 stan = bazaDanych.getMiejsca(uzytkownik);
                 wiadomosci = bazaWiadomosci.get(uzytkownik.getId());
             }
         }
+    }
 
+
+    public void updateStan(){
+        stan = bazaDanych.getMiejsca(uzytkownik);
     }
 
     public void updateWiadomosci(){
         wiadomosci.addAll(bazaWiadomosci.get(uzytkownik.getId()));
-    }
-
-    public void updateStan(){
-        stan = bazaDanych.getMiejsca(uzytkownik);
     }
 
     public UzytkownikPOJO getUzytkownik() {

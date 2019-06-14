@@ -3,5 +3,26 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
     http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
-  
+
+
+    <navigation-rule>
+    <from-view-id>/index.xhtml</from-view-id>
+    <navigation-case>
+        <from-outcome>logout</from-outcome>
+        <to-view-id>/login.xhtml</to-view-id>
+    </navigation-case>
+        <navigation-case>
+            <from-outcome>zmien</from-outcome>
+            <to-view-id>/zmien.xhtml</to-view-id>
+        </navigation-case>
+</navigation-rule>
+
+    <navigation-rule>
+    <from-view-id>/zmien.xhtml</from-view-id>
+    <navigation-case>
+        <from-outcome>index</from-outcome>
+        <to-view-id>/index.xhtml</to-view-id>
+    </navigation-case>
+    </navigation-rule>
+
 </faces-config>

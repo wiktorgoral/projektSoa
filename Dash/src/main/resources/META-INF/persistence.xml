@@ -3,7 +3,6 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
-
     <persistence-unit name="Baza">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>POJO.BiletPOJO</class>
@@ -21,4 +20,5 @@
             <property name="hibernate.format_sql" value="true" /> <!-- Show SQL formatted -->
         </properties>
     </persistence-unit>
+
 </persistence>

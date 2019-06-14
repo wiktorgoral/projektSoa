@@ -12,6 +12,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -37,18 +38,18 @@ public class Miejsce {
     }
 
     public static List<MiejscePOJO> getAll() {
-        List<MiejscePOJO> spots = new ArrayList<MiejscePOJO>();
+        List<MiejscePOJO> miejsca = new ArrayList<MiejscePOJO>();
         try {
             Query q = em.createQuery("FROM Miejsce", MiejscePOJO.class);
-            spots = q.getResultList();
+            miejsca = q.getResultList();
         } catch (Exception e) {
             System.out.println("Nie mozna pobrac z bazy " + e);
         }
-        return spots;
+        return miejsca;
     }
 
     public static MiejscePOJO get(int id) {
-        Query q = em.createQuery("FROM Bilet where id=:id", MiejscePOJO.class);
+        Query q = em.createQuery("FROM Miejsce where id=:id", MiejscePOJO.class);
         q.setParameter("id",id);
         List miejsce = new ArrayList<MiejscePOJO>();
         try {
@@ -142,8 +143,11 @@ public class Miejsce {
         if (Miejsce.oplacone(miejsce))
             return false;
 
+        Calendar date = Calendar.getInstance();
+        long czas = date.getTimeInMillis();
+        Date poPieciu = new Date(czas - (5 * 60000));
 
-        if (getOstatniBilet(miejsce.getId()).getKoniec().before(new Timestamp(System.currentTimeMillis())))
+        if (miejsce.getPrzyjazd().before(poPieciu))
             return true;
 
         return false;

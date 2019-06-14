@@ -10,9 +10,11 @@
 
 </h:head>
 <h:body>
-   <h:commandButton value="Zmien loginy" action="zmien" rendered="#{Dashboard.getUzytkownik().getNick().equals('admin')}"/>
-   <h:commandButton value="Zmien login" action="zmien" rendered="#{!Dashboard.getUzytkownik().getNick().equals('admin')}"/>
-   <h:commandButton value="Logout" action="login"/>
+   <h:form>
+   <h:commandButton value="Zmien loginy" action="zmien"  rendered="#{Dashboard.getUzytkownik().getNick().equals('admin')}"/>
+   <h:commandButton value="Zmien login" action="zmien"  rendered="#{!Dashboard.getUzytkownik().getNick().equals('admin')}"/>
+   <h:commandButton value="Logout" action="logout"/>
+   </h:form>
 
    <h:form id="miejsca">
       <h:outputText value="Wszystkie miejsca"/>

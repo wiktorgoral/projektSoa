@@ -27,8 +27,9 @@ public class Alert implements WarningiLocal, WarningiRemote {
 
     public void dodajBilet(BiletPOJO bilet){
         Date data = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-        String dateString = format.format(data);
+        SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        String dateString = form.format(data);
+        System.out.println(dateString);
         sender.sendMessage("Date:"+dateString);
         czas.schedule(new CheckSpot(bilet.getMiejsce().getId(),this), bilet.getKoniec());
     }
@@ -45,7 +46,7 @@ public class Alert implements WarningiLocal, WarningiRemote {
         sender.sendMessage("Data:"+dataString);
         Calendar date = Calendar.getInstance();
         long dataCalendar = date.getTimeInMillis();
-        Date czasSprawdzenia = new Date(dataCalendar + (5 * 60000));
+        Date czasSprawdzenia = new Date(dataCalendar + (3 * 60000));
         czas.schedule(new CheckSpot(id, this), czasSprawdzenia);
     }
 

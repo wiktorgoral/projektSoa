@@ -18,13 +18,13 @@ public class MiejscePOJO implements Serializable {
     @Column(nullable = false, name = "Wolne")
     private Boolean wolne;
 
-    @Column(name = "arrival_time")
+    @Column(name = "przyjazd")
     private Timestamp przyjazd;
 
     @ManyToOne
     private StrefaPojo strefa;
 
-    @OneToMany(mappedBy = "Bilety", orphanRemoval = true, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "miejsce", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<BiletPOJO> Bilety = new ArrayList<BiletPOJO>();
 
     public MiejscePOJO() { super();

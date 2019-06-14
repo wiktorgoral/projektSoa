@@ -18,8 +18,10 @@ public class CheckSpot extends TimerTask {
     }
 
     public void run(){
+
         MiejscePOJO miejsce = Miejsce.get(miejsceId);
-        if (Miejsce.warningOK(miejsce)) manager.warn(miejsce);
+        if (Miejsce.warningOK(miejsce))
+            manager.warn(miejsce);
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
         String dataString = format.format(date);

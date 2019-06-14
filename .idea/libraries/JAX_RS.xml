@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="JAX-RS" type="JAX-RS">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../resteasy-jaxrs-4.0.0.Final-all/resteasy-jaxrs-4.0.0.Final/resteasy-jboss-modules-4.0.0.Final.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

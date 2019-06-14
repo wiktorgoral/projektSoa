@@ -12,7 +12,7 @@ public class StrefaPojo implements Serializable {
     @Column(nullable = false)
     private int id;
 
-    @OneToMany(mappedBy = "zone", orphanRemoval = true, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "strefa", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<MiejscePOJO> miejsca = new ArrayList<MiejscePOJO>();
 
     @OneToOne

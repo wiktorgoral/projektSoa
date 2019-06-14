@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 public class BiletPOJO implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private int id;
 

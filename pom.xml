@@ -10,11 +10,9 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>Dash</module>
-        <module>REST</module>
         <module>MainImpl</module>
         <module>MainApi</module>
-        <module>Sensor</module>
         <module>Parkometr</module>
+        <module>Sensorr</module>
     </modules>
-
 </project>
