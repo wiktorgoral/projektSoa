@@ -145,7 +145,7 @@ public class Miejsce {
 
         Calendar date = Calendar.getInstance();
         long czas = date.getTimeInMillis();
-        Date poPieciu = new Date(czas - (5 * 60000));
+        Date poPieciu = new Date(czas - (5 * 60000-20));
 
         if (miejsce.getPrzyjazd().before(poPieciu))
             return true;

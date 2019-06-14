@@ -3,6 +3,7 @@ package Controller;
 import DAO.Miejsce;
 import DAO.Uzytkownik;
 import POJO.MiejscePOJO;
+import POJO.Spot;
 import POJO.UzytkownikPOJO;
 import Warning.local.BazaDanychLocal;
 import Warning.remote.BazaDanychRemote;
@@ -11,6 +12,7 @@ import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Singleton;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Local(BazaDanychLocal.class)
@@ -22,12 +24,34 @@ public class BazaDanychBean implements BazaDanychLocal, BazaDanychRemote{
         return Uzytkownik.get(name);
     }
 
-    public List<MiejscePOJO> getMiejsca(UzytkownikPOJO uzytkownik){
+    public List<Spot> getMiejsca(UzytkownikPOJO uzytkownik){
         if (uzytkownik.getNick().equals("admin")){
-            return Miejsce.getAll();
+            List<MiejscePOJO> miejsca = Miejsce.getAll();
+            List<Spot> spots = new ArrayList<Spot>();
+
+            for (int i=0;i<miejsca.size();i++){
+                Spot nowy = new Spot();
+                nowy.setId(miejsca.get(i).getId());
+                nowy.setStrefa(miejsca.get(i).getStrefa().getId());
+                nowy.setOplacone(Miejsce.oplacone(miejsca.get(i)));
+                nowy.setWolne(miejsca.get(i).getWolne());
+                spots.add(nowy);
+            }
+            return spots;
         }
         else {
-            return Miejsce.getByUzytkownik(uzytkownik.getId());
+            List<MiejscePOJO> miejsca = Miejsce.getByUzytkownik(uzytkownik.getId());
+            List<Spot> spots = new ArrayList<Spot>();
+
+            for (int i=0;i<miejsca.size();i++){
+                Spot nowy = new Spot();
+                nowy.setId(miejsca.get(i).getId());
+                nowy.setStrefa(miejsca.get(i).getStrefa().getId());
+                nowy.setOplacone(Miejsce.oplacone(miejsca.get(i)));
+                nowy.setWolne(miejsca.get(i).getWolne());
+                spots.add(nowy);
+            }
+            return spots;
         }
     }
 

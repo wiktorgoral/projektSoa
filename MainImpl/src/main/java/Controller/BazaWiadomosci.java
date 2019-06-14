@@ -1,6 +1,7 @@
 package Controller;
 
 
+import DAO.Uzytkownik;
 import Warning.local.WiadomosciLocal;
 import Warning.remote.WiadomosciRemote;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
@@ -42,6 +43,10 @@ public class BazaWiadomosci implements WiadomosciLocal, WiadomosciRemote{
 
     public List<String> get(int id) {
         List<String> wiadomosciUzytkownika = new ArrayList<String>();
+        if (Uzytkownik.get(id).getNick().equals("admin")){
+            wiadomosciUzytkownika.addAll(wiadomosci);
+            return wiadomosciUzytkownika;
+        }
         for (int i=0; i<wiadomosci.size();i++){
             if (wiadomosci.get(i).contains(id+":")) {
                 wiadomosciUzytkownika.add(wiadomosci.get(i));

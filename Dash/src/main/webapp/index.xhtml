@@ -21,7 +21,7 @@
       <h:dataTable value="#{Dashboard.getStan()}" var="element">
          <h:column>
             <f:facet name="header">Strefa</f:facet>
-            #{element.getStrefa().getId()}
+            #{element.getStrefa()}
          </h:column>
          <h:column>
             <f:facet name="header">Miejsce</f:facet>
@@ -29,7 +29,11 @@
          </h:column>
          <h:column>
             <f:facet name="header">Wolne</f:facet>
-            #{element.getWolne()}
+            #{element.isWolne()}
+         </h:column>
+         <h:column>
+            <f:facet name="header">Oplacone</f:facet>
+            #{element.isOplacone()}
          </h:column>
       </h:dataTable>
       <p:poll interval="60" listener="#{Dashboard.updateStan()}" process="@this" update="miejsca" />

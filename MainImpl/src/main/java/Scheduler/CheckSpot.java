@@ -18,7 +18,6 @@ public class CheckSpot extends TimerTask {
     }
 
     public void run(){
-
         MiejscePOJO miejsce = Miejsce.get(miejsceId);
         if (Miejsce.warningOK(miejsce))
             manager.warn(miejsce);

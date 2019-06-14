@@ -35,6 +35,7 @@ public class Alert implements WarningiLocal, WarningiRemote {
     }
 
     public void warn(MiejscePOJO miejsce) {
+        System.out.println("warn");
         int uzytkownikId = miejsce.getStrefa().getUzytkownik().getId();
         sender.sendMessage(uzytkownikId+":"+miejsce.getId());
     }

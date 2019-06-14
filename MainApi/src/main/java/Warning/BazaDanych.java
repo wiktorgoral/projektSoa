@@ -1,6 +1,6 @@
 package Warning;
 
-import POJO.MiejscePOJO;
+import POJO.Spot;
 import POJO.UzytkownikPOJO;
 
 import java.security.NoSuchAlgorithmException;
@@ -10,7 +10,7 @@ public interface BazaDanych {
 
     UzytkownikPOJO getUzytkownik(String name);
 
-     List<MiejscePOJO> getMiejsca(UzytkownikPOJO uzytkownik);
+     List<Spot> getMiejsca(UzytkownikPOJO uzytkownik);
 
      void changePassword(int id, String oldPassword, String newPassword)throws NoSuchAlgorithmException;
 

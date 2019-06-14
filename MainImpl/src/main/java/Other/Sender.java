@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.jms.JMSConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.Queue;
+import javax.jms.TextMessage;
 
 @Stateless
 public class Sender {
@@ -19,7 +20,8 @@ public class Sender {
 
     public void sendMessage(String txt){
         try {
-            context.createProducer().send(queue, txt);
+            TextMessage msg = context.createTextMessage(txt);
+            context.createProducer().send(queue, msg);
             System.out.println("Wysłano " + txt);
         }catch (Exception e){
             e.printStackTrace();

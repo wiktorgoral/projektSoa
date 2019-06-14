@@ -1,4 +1,4 @@
-import POJO.MiejscePOJO;
+import POJO.Spot;
 import POJO.UzytkownikPOJO;
 import Warning.BazaDanych;
 import Warning.Wiadomosci;
@@ -17,7 +17,7 @@ public class Dashboard implements Serializable {
 
     private UzytkownikPOJO uzytkownik;
 
-    private List<MiejscePOJO> stan;
+    private List<Spot> stan;
 
     private List<String> wiadomosci;
 
@@ -58,11 +58,11 @@ public class Dashboard implements Serializable {
         this.uzytkownik = uzytkownik;
     }
 
-    public List<MiejscePOJO> getStan() {
+    public List<Spot> getStan() {
         return stan;
     }
 
-    public void setStan(List<MiejscePOJO> stan) {
+    public void setStan(List<Spot> stan) {
         this.stan = stan;
     }
 
